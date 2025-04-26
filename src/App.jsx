@@ -3,9 +3,10 @@
 function App() {
 
   return (
-    <>
-      Initilizing project
-    </>
+    <div>
+      <p className="">Hello from GUB_Blog_Website</p>
+      <button className="btn btn-outline btn-accent">Accent</button>
+    </div>
   )
 }
 
