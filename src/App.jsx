@@ -1,13 +1,16 @@
-
+import { Outlet } from "react-router-dom";
+import Home from "./pages/Home/Home";
+import Navbar from "./shared/Navbar";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-
   return (
-    <div>
-      <p className="">Hello from GUB_Blog_Website</p>
-      <button className="btn btn-outline btn-accent">Accent</button>
-    </div>
-  )
+    <>
+      <Toaster position="top-center" reverseOrder={false} />
+      <Navbar />
+      <Outlet />
+    </>
+  );
 }
 
-export default App
+export default App;
