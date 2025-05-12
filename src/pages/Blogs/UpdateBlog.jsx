@@ -1,39 +1,46 @@
+// components/UpdateBlog.jsx
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function CreateBlog() {
+function UpdateBlog() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  //   console.log(blog.blog.title);
+
   const {
     register,
-    handleSubmit,
     reset,
+    handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user"));
+  // Fetch existing blog data
+  useEffect(() => {
+    axios
+      .get(`https://gub-blog-server.vercel.app/blogs/${id}`)
+      .then((res) => {
+        reset(res.data.blog);
+      })
+      .catch((err) => {
+        console.error("Error fetching blog:", err);
+        toast.error("Failed to load blog data");
+      });
+  }, [id, reset]);
 
   const onSubmit = async (data) => {
-    const blogData = {
-      ...data,
-      author: user.name,
-      authorEmail: user.email,
-    };
     try {
       setLoading(true);
-      await axios.post(
-        "https://gub-blog-server.vercel.app/create-blog",
-        blogData
-      );
-      toast.success("Blog created successfully!");
-      reset();
+      await axios.put(`https://gub-blog-server.vercel.app/update/${id}`, data);
+      toast.success("Blog updated successfully!");
       navigate("/blogs");
-    } catch (error) {
-      console.error("Error creating blog:", error);
-      toast.error("Failed to create blog. Please try again.");
+    } catch (err) {
+      console.error("Error updating blog:", err);
+      toast.error("Update failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -47,7 +54,7 @@ function CreateBlog() {
       >
         <div className="w-fit mb-5">
           <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center border-b-4 border-blue-500">
-            Create New Blog
+            Update Blog
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -138,7 +145,7 @@ function CreateBlog() {
               loading ? "bg-gray-400" : "bg-blue-500"
             } rounded hover:bg-blue-600 transition duration-200`}
           >
-            {loading ? "Publishing..." : "Publish Blog"}
+            {loading ? "Updating..." : "Update Blog"}
           </button>
         </div>
       </form>
@@ -146,4 +153,4 @@ function CreateBlog() {
   );
 }
 
-export default CreateBlog;
+export default UpdateBlog;

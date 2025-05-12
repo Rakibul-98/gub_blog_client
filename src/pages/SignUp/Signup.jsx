@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import img from "../../assets/svg/Sign up-rafiki.svg";
 
 export default function Signup() {
   const {
@@ -15,45 +16,36 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // TODO: Send data to backend
-
     try {
-      // Send data to the backend
-      const response = await axios.post(
-        "http://localhost:5000/users/signup",
-        data
-      );
-      toast.success("User created:", response.data);
+      await axios.post("https://gub-blog-server.vercel.app/users/signup", data);
+      toast.success("User created successfully!");
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (error) {
       console.error("Error during signup:", error);
       if (error.response) {
-        // Handle error response from the backend
         toast.error(
           error.response.data.message || "Signup failed. Please try again."
         );
       } else {
-        // Handle other types of errors (e.g., network errors)
         toast.error("Network error. Please try again.");
       }
     }
   };
 
-  // To watch password field value
   const password = watch("password");
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100">
+      {/* Form Section - Left */}
+      <div className="w-full md:w-1/2 p-8 max-w-md mx-auto bg-white shadow-md rounded">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Create an Account
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          {/* Name Field */}
+          {/* Name */}
           <div>
             <label className="block text-gray-700">Name</label>
             <input
@@ -66,7 +58,7 @@ export default function Signup() {
             )}
           </div>
 
-          {/* Email Field */}
+          {/* Email */}
           <div>
             <label className="block text-gray-700">Email</label>
             <input
@@ -87,7 +79,7 @@ export default function Signup() {
             )}
           </div>
 
-          {/* Password Field */}
+          {/* Password */}
           <div>
             <label className="block text-gray-700">Password</label>
             <input
@@ -108,7 +100,7 @@ export default function Signup() {
             )}
           </div>
 
-          {/* Confirm Password Field */}
+          {/* Confirm Password */}
           <div>
             <label className="block text-gray-700">Confirm Password</label>
             <input
@@ -127,7 +119,6 @@ export default function Signup() {
             )}
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             className="w-full py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 transition duration-200"
@@ -136,13 +127,21 @@ export default function Signup() {
           </button>
         </form>
 
-        {/* Login link */}
-        <p className="text-sm text-center text-gray-600">
+        <p className="text-sm text-center text-gray-600 mt-4">
           Already have an account?{" "}
           <Link to="/login" className="text-blue-500 hover:underline">
             Log in
           </Link>
         </p>
+      </div>
+
+      {/* Image Section - Right */}
+      <div className="hidden md:flex w-full md:w-1/2 h-96 md:h-screen">
+        <img
+          src={img}
+          alt="Signup Visual"
+          className="object-cover w-full h-full"
+        />
       </div>
     </div>
   );

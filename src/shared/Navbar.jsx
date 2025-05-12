@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/gub.png";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,39 +20,68 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-gray-100 shadow-md sticky top-0 z-50">
       <div className="w-[95%] mx-auto flex items-center justify-between py-2">
-        <Link to="/" className="text-2xl font-bold text-gray-800">
+        <NavLink
+          to="/"
+          className="flex items-center space-x-2 text-gray-800 transition"
+        >
           <img className="h-10 w-10" src={logo} alt="logo" />
-        </Link>
+          <h2 className="text-3xl font-extrabold tracking-tight font-mono">
+            Ink<span className="text-blue-500">spire</span>
+          </h2>
+        </NavLink>
 
         <div className="flex items-center space-x-6">
-          <Link to="/" className=" hover:text-blue-500 transition">
-            Home
-          </Link>
-          <Link to="/about" className=" hover:text-blue-500 transition">
-            About
-          </Link>
-          <Link to="/blogs" className=" hover:text-blue-500 transition">
-            Blog
-          </Link>
-          <Link to="/contact" className=" hover:text-blue-500 transition">
-            Contact
-          </Link>
-          {isLoggedIn ? (
-            <button
-              onClick={handleLogout}
-              className="px-4 py-[5px] text-sm bg-red-500 text-white hover:bg-red-600 transition"
+          {[
+            { to: "/", label: "Home" },
+            { to: "/blogs", label: "Blogs" },
+            { to: "/about", label: "About" },
+            { to: "/contact", label: "Contact" },
+          ].map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              className={({ isActive }) =>
+                isActive
+                  ? "text-blue-600 font-semibold underline underline-offset-4"
+                  : "hover:text-blue-500 transition"
+              }
             >
-              LOGOUT
-            </button>
+              {label}
+            </NavLink>
+          ))}
+
+          {isLoggedIn ? (
+            <>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-blue-600 font-semibold underline underline-offset-4"
+                    : "hover:text-blue-500 transition"
+                }
+              >
+                Dashboard
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="px-4 py-[5px] text-sm bg-red-500 text-white hover:bg-red-600 transition"
+              >
+                LOGOUT
+              </button>
+            </>
           ) : (
-            <Link
+            <NavLink
               to="/login"
-              className="px-4 py-[5px] text-sm bg-blue-500 text-white hover:bg-blue-600 transition"
+              className={({ isActive }) =>
+                isActive
+                  ? "px-4 py-[5px] text-sm bg-blue-600 text-white"
+                  : "px-4 py-[5px] text-sm bg-blue-500 text-white hover:bg-blue-600 transition"
+              }
             >
               LOGIN
-            </Link>
+            </NavLink>
           )}
         </div>
       </div>

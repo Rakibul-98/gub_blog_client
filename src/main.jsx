@@ -12,6 +12,8 @@ import About from "./pages/About/About.jsx";
 import Contact from "./pages/Contact/Contact.jsx";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
 import BlogDetails from "./pages/Blogs/BlogDetails.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
+import UpdateBlog from "./pages/Blogs/UpdateBlog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,22 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <About />,
+      },
+      {
+        path: "dashboard",
+        element: (
+          <PrivateRoute>
+            <Dashboard />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "update-blog/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateBlog />
+          </PrivateRoute>
+        ),
       },
       {
         path: "contact",

@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom";
+
 function About() {
   return (
     <div className="max-w-4xl mx-auto px-6 py-16">
-      <h1 className="text-4xl font-bold text-center text-gray-800 mb-8">
-        About Us
-      </h1>
+      <div className="w-fit mx-auto mb-10">
+        <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center border-b-4 border-blue-500">
+          About Us
+        </h2>
+      </div>
 
       <div className="space-y-8 text-gray-600 text-lg leading-relaxed">
         <p>
@@ -39,7 +43,9 @@ function About() {
 
         <div className="text-center mt-10">
           <p className="font-semibold">Want to join the community?</p>
-          <button className="btn btn-primary mt-4">Contact Us</button>
+          <Link to="/contact" className="btn btn-primary mt-4">
+            Contact Us
+          </Link>
         </div>
       </div>
     </div>

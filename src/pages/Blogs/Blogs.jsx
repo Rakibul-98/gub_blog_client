@@ -11,7 +11,9 @@ function Blogs() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/blogs");
+        const response = await axios.get(
+          "https://gub-blog-server.vercel.app/blogs"
+        );
         setBlogs(response.data.blogs);
       } catch (error) {
         console.error("Error fetching blogs:", error);

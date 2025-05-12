@@ -2,6 +2,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import img from "../../assets/svg/Tablet login-rafiki.svg";
 
 function Login() {
   const {
@@ -13,10 +14,9 @@ function Login() {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/users/login",
+        "https://gub-blog-server.vercel.app/users/login",
         data
       );
-      // console.log(response);
       if (response.status === 200) {
         toast.success("Login successful!");
         localStorage.setItem("user", JSON.stringify(response.data.user));
@@ -33,9 +33,19 @@ function Login() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">
+    <div className="min-h-screen flex flex-col md:flex-row items-center justify-center bg-gray-100">
+      {/* Image Section */}
+      <div className="hidden md:flex w-full md:w-1/2 h-96 md:h-screen">
+        <img
+          src={img}
+          alt="Login Visual"
+          className="object-cover w-full h-full"
+        />
+      </div>
+
+      {/* Form Section */}
+      <div className="w-full md:w-1/2 p-8 max-w-md mx-auto bg-white shadow-md rounded">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Welcome Back
         </h2>
 
@@ -88,7 +98,7 @@ function Login() {
           </button>
         </form>
 
-        <p className="text-sm text-center text-gray-600">
+        <p className="text-sm text-center text-gray-600 mt-4">
           Don't have an account?{" "}
           <Link to="/signup" className="text-blue-500 hover:underline">
             Sign up
