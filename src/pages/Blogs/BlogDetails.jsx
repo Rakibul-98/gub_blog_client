@@ -15,10 +15,14 @@ const BlogDetails = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const blogRes = await axios.get(`http://localhost:5000/blogs/${id}`);
+        const blogRes = await axios.get(
+          `https://gub-blog-server.vercel.app/blogs/${id}`
+        );
         setBlog(blogRes.data.blog);
 
-        const allRes = await axios.get("http://localhost:5000/blogs");
+        const allRes = await axios.get(
+          "https://gub-blog-server.vercel.app/blogs"
+        );
         const allBlogs = allRes.data.blogs;
 
         const filtered = allBlogs

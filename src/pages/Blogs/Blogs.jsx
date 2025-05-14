@@ -18,7 +18,7 @@ function Blogs() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/blogs");
+        const res = await axios.get("https://gub-blog-server.vercel.app/blogs");
         setBlogs(res.data.blogs);
         setFilteredBlogs(res.data.blogs);
         setVisibleBlogs(res.data.blogs.slice(2, 2 + itemsPerLoad));

@@ -12,7 +12,7 @@ export default function Dashboard() {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/blogs/user/${userEmail}`
+          `https://gub-blog-server.vercel.app/blogs/user/${userEmail}`
         );
         setBlogs(response.data.blogs || []);
       } catch (error) {
@@ -29,7 +29,7 @@ export default function Dashboard() {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/blogs/${blogId}`);
+      await axios.delete(`https://gub-blog-server.vercel.app/blogs/${blogId}`);
       setBlogs((prev) => prev.filter((blog) => blog._id !== blogId));
     } catch (err) {
       console.error("Failed to delete blog:", err);

@@ -24,7 +24,10 @@ function CreateBlog() {
     };
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/create-blog", blogData);
+      await axios.post(
+        "https://gub-blog-server.vercel.app/create-blog",
+        blogData
+      );
       toast.success("Blog created successfully!");
       reset();
       navigate("/blogs");

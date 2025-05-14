@@ -15,7 +15,9 @@ function Home() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/blogs");
+        const response = await axios.get(
+          "https://gub-blog-server.vercel.app/blogs"
+        );
         const blogs = response.data.blogs;
         const randomBlogs = getRandomBlogs(blogs, 2);
         setFeatureBlogs(randomBlogs);
