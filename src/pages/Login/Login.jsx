@@ -14,7 +14,7 @@ function Login() {
   const onSubmit = async (data) => {
     try {
       const response = await axios.post(
-        "https://gub-blog-server.vercel.app/users/login",
+        "http://localhost:5000/users/login",
         data
       );
       if (response.status === 200) {

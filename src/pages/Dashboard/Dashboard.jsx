@@ -12,7 +12,7 @@ export default function Dashboard() {
     const fetchBlogs = async () => {
       try {
         const response = await axios.get(
-          `https://gub-blog-server.vercel.app/blogs/user/${userEmail}`
+          `http://localhost:5000/blogs/user/${userEmail}`
         );
         setBlogs(response.data.blogs || []);
       } catch (error) {
@@ -29,7 +29,7 @@ export default function Dashboard() {
     if (!window.confirm("Are you sure you want to delete this blog?")) return;
 
     try {
-      await axios.delete(`https://gub-blog-server.vercel.app/blogs/${blogId}`);
+      await axios.delete(`http://localhost:5000/blogs/${blogId}`);
       setBlogs((prev) => prev.filter((blog) => blog._id !== blogId));
     } catch (err) {
       console.error("Failed to delete blog:", err);
@@ -39,7 +39,6 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
-        {/* Blog List */}
         <div className="w-full lg:w-2/3">
           <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b-4 border-primary w-fit">
             My Blogs
@@ -56,14 +55,12 @@ export default function Dashboard() {
                   key={blog._id}
                   className="bg-white flex flex-col md:flex-row shadow-md rounded-lg overflow-hidden border border-gray-200"
                 >
-                  {/* Image */}
                   <img
                     src={blog.imageUrl}
                     alt={blog.title}
                     className="w-full h-48 object-cover"
                   />
 
-                  {/* Content */}
                   <div className="p-4 flex flex-col justify-between w-full">
                     <div>
                       <h2 className="text-xl font-semibold text-gray-800 mb-2">
@@ -95,7 +92,6 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* Right Side Widgets */}
         <div className="w-full lg:w-1/3 space-y-3 mt-16">
           <div className="bg-white shadow-md rounded-lg p-6 border border-gray-200">
             <h2 className="text-xl font-semibold text-gray-800 mb-2">

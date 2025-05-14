@@ -22,7 +22,7 @@ function UpdateBlog() {
   // Fetch existing blog data
   useEffect(() => {
     axios
-      .get(`https://gub-blog-server.vercel.app/blogs/${id}`)
+      .get(`http://localhost:5000/blogs/${id}`)
       .then((res) => {
         reset(res.data.blog);
       })
@@ -35,7 +35,7 @@ function UpdateBlog() {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      await axios.put(`https://gub-blog-server.vercel.app/update/${id}`, data);
+      await axios.put(`http://localhost:5000/update/${id}`, data);
       toast.success("Blog updated successfully!");
       navigate("/blogs");
     } catch (err) {

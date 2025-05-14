@@ -10,17 +10,15 @@ const BlogDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  console.log(blog);
+
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const blogRes = await axios.get(
-          `https://gub-blog-server.vercel.app/blogs/${id}`
-        );
+        const blogRes = await axios.get(`http://localhost:5000/blogs/${id}`);
         setBlog(blogRes.data.blog);
 
-        const allRes = await axios.get(
-          "https://gub-blog-server.vercel.app/blogs"
-        );
+        const allRes = await axios.get("http://localhost:5000/blogs");
         const allBlogs = allRes.data.blogs;
 
         const filtered = allBlogs
@@ -68,9 +66,13 @@ const BlogDetails = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6 flex flex-col md:flex-row gap-8 items-start">
-      {/* Main Blog Content */}
       <div className="flex-1 bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold mb-4">{blog.title}</h1>
+        <div className="flex justify-between items-center mb-4">
+          <h1 className="text-3xl font-bold">{blog.title}</h1>
+          <span className=" bg-primary px-3 py-1 flex items-center text-sm text-white rounded-full">
+            {blog.category}
+          </span>
+        </div>
 
         <img
           src={blog.imageUrl}
@@ -78,7 +80,7 @@ const BlogDetails = () => {
           className="w-full h-64 object-cover rounded-lg mb-4 bg-gray-100"
         />
 
-        <p className="text-lg text-gray-700 italic mb-4">{blog.description}</p>
+        <p className="text-lg italic mb-4 text-primary">{blog.description}</p>
 
         <div className="text-gray-800 leading-relaxed mb-6 whitespace-pre-line">
           {blog.content}
@@ -100,9 +102,7 @@ const BlogDetails = () => {
         </div>
       </div>
 
-      {/* Sidebar */}
       <div className="w-full md:w-72 space-y-6">
-        {/* Author Info */}
         <div className="bg-white shadow-md rounded-lg p-4">
           <h2 className="text-lg font-semibold mb-2">About the Author</h2>
           <p className="text-gray-700 text-sm">
@@ -112,7 +112,6 @@ const BlogDetails = () => {
           </p>
         </div>
 
-        {/* Dynamic Recent Posts */}
         <div className="bg-white shadow-md rounded-lg p-4">
           <h2 className="text-lg font-semibold mb-4 border-b pb-2">
             Recent Posts

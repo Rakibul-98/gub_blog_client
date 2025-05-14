@@ -15,9 +15,7 @@ function Home() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get(
-          "https://gub-blog-server.vercel.app/blogs"
-        );
+        const response = await axios.get("http://localhost:5000/blogs");
         const blogs = response.data.blogs;
         const randomBlogs = getRandomBlogs(blogs, 2);
         setFeatureBlogs(randomBlogs);
@@ -58,7 +56,7 @@ function Home() {
               <img
                 src={img}
                 alt={`Banner ${index + 1}`}
-                className="md:h-[60vh] object-cover w-full"
+                className="md:h-[60vh] object-cover w-full bg-gray-200"
               />
             </div>
           ))}
@@ -105,7 +103,7 @@ function Home() {
       </section>
 
       <section className="py-12 bg-gray-100">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="w-[90%] mx-auto px-4">
           <div className="w-fit mx-auto mb-5">
             <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center border-b-4 border-blue-500">
               What Our Readers Say
@@ -142,7 +140,7 @@ function Home() {
         </div>
       </section>
       <section className="py-12">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="w-[90%] mx-auto px-4">
           <div className="text-center mb-10">
             <div className="w-fit mx-auto">
               <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center border-b-4 border-blue-500">
@@ -153,8 +151,8 @@ function Home() {
               Find stories that speak to your interests
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-4 sm:grid-cols-2">
-            {["Technology", "Lifestyle", "Health", "Travel"].map(
+          <div className="grid gap-6 md:grid-cols-5 sm:grid-cols-2">
+            {["Technology", "Lifestyle", "Food", "Health", "Travel"].map(
               (category, index) => (
                 <div
                   key={index}

@@ -17,7 +17,7 @@ export default function Signup() {
 
   const onSubmit = async (data) => {
     try {
-      await axios.post("https://gub-blog-server.vercel.app/users/signup", data);
+      await axios.post("http://localhost:5000/users/signup", data);
       toast.success("User created successfully!");
       setTimeout(() => {
         navigate("/login");

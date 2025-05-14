@@ -24,10 +24,7 @@ function CreateBlog() {
     };
     try {
       setLoading(true);
-      await axios.post(
-        "https://gub-blog-server.vercel.app/create-blog",
-        blogData
-      );
+      await axios.post("http://localhost:5000/create-blog", blogData);
       toast.success("Blog created successfully!");
       reset();
       navigate("/blogs");
@@ -50,6 +47,7 @@ function CreateBlog() {
             Create New Blog
           </h2>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="form-control">
             <label className="label">
@@ -68,7 +66,6 @@ function CreateBlog() {
             )}
           </div>
 
-          {/* Image URL */}
           <div className="form-control">
             <label className="label">
               <span className="label-text font-semibold text-lg">
@@ -87,9 +84,34 @@ function CreateBlog() {
               </p>
             )}
           </div>
+
+          <div className="form-control md:col-span-2">
+            <label className="label">
+              <span className="label-text font-semibold text-lg">Category</span>
+            </label>
+            <select
+              {...register("category", { required: "Category is required" })}
+              className="select select-bordered w-full"
+              defaultValue=""
+            >
+              <option value="" disabled>
+                Select a category
+              </option>
+              <option value="Technology">Technology</option>
+              <option value="Health">Health</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Travel">Travel</option>
+              <option value="Food">Food</option>
+              <option value="Education">Education</option>
+            </select>
+            {errors.category && (
+              <p className="text-red-500 text-sm mt-1">
+                {errors.category.message}
+              </p>
+            )}
+          </div>
         </div>
 
-        {/* Short Description */}
         <div className="form-control">
           <label className="label">
             <span className="label-text font-semibold text-lg">
@@ -111,7 +133,6 @@ function CreateBlog() {
           )}
         </div>
 
-        {/* Full Content */}
         <div className="form-control">
           <label className="label">
             <span className="label-text font-semibold text-lg">Content</span>
@@ -129,7 +150,6 @@ function CreateBlog() {
           )}
         </div>
 
-        {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"
